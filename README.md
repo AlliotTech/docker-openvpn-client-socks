@@ -53,3 +53,19 @@ You can easily convert this to an HTTP proxy using [http-proxy-to-socks](https:/
 ```bash
 hpts -s 127.0.0.1:1080 -p 8080
 ```
+
+
+``` 
+
+docker run \
+    --rm \
+    --tty \
+    --interactive \
+    --device=/dev/net/tun \
+    --name=openvpn-client \
+    --cap-add=NET_ADMIN \
+    --publish 1080:1080 \
+    --volume "/root/openvpn:/etc/openvpn/:ro" \
+    --sysctl net.ipv6.conf.all.disable_ipv6=0 \
+    openvpn-client-socks:latest
+```
